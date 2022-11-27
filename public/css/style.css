@@ -1,0 +1,27 @@
+.ship{
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    animation-duration: 1.7s;
+    animation-name: move;
+    animation-iteration-count: infinite;
+    border: 0px;
+}
+.mainContent{
+    height: 900px;
+    border: 1px solid black;
+    overflow: hidden;
+    display: flex;
+}
+.time{
+    display: flex;
+}
+@keyframes move{
+    from{
+        margin-top: -20%;
+    }
+    to{
+        margin-top: 100%;
+    }
+
+}

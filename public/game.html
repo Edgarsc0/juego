@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' href='css/style.css'>
+    <title>TRIVIAL SHIPS</title>
+    <script src='/socket.io/socket.io.js'></script>
+</head>
+<body>
+    <h1>JUEGIÑO</h1>
+    <div id='socketId'></div>
+    <p>Puntuacion actual: </p><div id='points'></div>
+    <p>TIEMPO: </p>
+    <div class='time'>
+        <div id='min'><h1>01:</h1></div><div id='sec'><h1>30</h1></div>
+    </div>
+    <hr>
+    <div class='mainContent' id='padre'>
+        <div class='ship' id='1' onclick='removerDiv(id)'></div>
+        <div class='ship' id='2' onclick='removerDiv(id)'></div>
+        <div class='ship' id='3' onclick='removerDiv(id)'></div>
+        <div class='ship' id='4' onclick='removerDiv(id)'></div>
+        <div class='ship' id='5' onclick='removerDiv(id)'></div>
+        <div class='ship' id='6' onclick='removerDiv(id)'></div>
+        <div class='ship' id='7' onclick='removerDiv(id)'></div>
+        <div class='ship' id='8' onclick='removerDiv(id)'></div>
+        <div class='ship' id='9' onclick='removerDiv(id)'></div>
+        <div class='ship' id='10' onclick='removerDiv(id)'></div>
+        <div class='ship' id='11' onclick='removerDiv(id)'></div>
+    </div>
+    <script>
+        const socket = io('http://localhost:8000');
+        const socketIdDiv=document.getElementById('socketId');
+        socket.on('socket:id',({id})=>{
+            socketIdDiv.innerHTML='<h1>'+id+'</h1>';
+        });
+        let cuenta=0;
+        const div=document.getElementsByClassName('ship')
+        for(i of div){
+            let ram = Math.floor(Math.random()*(15-10) +10);
+            i.style.animationDuration=ram+'s';
+            i.style.backgroundImage='url(../img/b1.png)';
+            i.style.backgroundRepeat='no-repeat';
+            i.style.backgroundSize='contain';
+        }
+        const padre=document.getElementById('padre');
+        const pointsDiv=document.getElementById('points');
+        const removerDiv=(id)=>{
+            cuenta+=1;
+            pointsDiv.innerHTML='<h1>'+cuenta+'</h1>';
+            padre.removeChild(document.getElementById(id));
+            const newDiv=document.createElement('DIV');
+            let ram = Math.floor(Math.random()*(15-10) +10);
+            newDiv.className='ship';
+            newDiv.setAttribute('id',id);
+            newDiv.setAttribute('onclick','removerDiv(id)');
+            newDiv.style.animationDuration=ram+'s';
+            newDiv.style.backgroundImage='url(../img/b1.png)';
+            newDiv.style.backgroundRepeat='no-repeat';
+            newDiv.style.backgroundSize='contain';
+            padre.appendChild(newDiv);
+        }
+        const minDiv=document.getElementById('min');
+        const secDiv=document.getElementById('sec');
+        let segundos=30;
+        let minutos=1;
+        const actualizarTiempo=()=>{
+            if(minutos==0 && segundos==1){
+                setTimeout(()=>{
+                    minDiv.innerHTML='<h1>00:</h1>';
+                    secDiv.innerHTML='<h1>00</h1>';
+                },1000);
+            }else{
+                if(segundos==1){
+                setTimeout(()=>{
+                    segundos=59;
+                    minutos-=1;
+                    if(minutos.toString().split('').length>1){
+                        minDiv.innerHTML='<h1>'+minutos+':</h1>';
+                    }else{
+                        minDiv.innerHTML='<h1>0'+minutos+':</h1>';
+                    }
+                    if(segundos.toString().split('').length>1){
+                        secDiv.innerHTML='<h1>'+segundos+'</h1>'
+                    }else{
+                        secDiv.innerHTML='<h1>0'+segundos+'</h1>'
+                    }
+                    actualizarTiempo();
+                },1000);
+            }else{
+                setTimeout(()=>{
+                    segundos-=1;
+                    if(segundos.toString().split('').length>1){
+                        secDiv.innerHTML='<h1>'+segundos+'</h1>'
+                    }else{
+                        secDiv.innerHTML='<h1>0'+segundos+'</h1>'
+                    }
+                    actualizarTiempo();
+                },1000);
+            }
+            }
+        }
+        actualizarTiempo();
+        setTimeout(()=>{
+            alert('Fin del juego');
+            for(i of div){
+                i.style={};
+            }
+        },90000);
+    </script>
+</body>
+</html>
