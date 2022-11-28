@@ -93,7 +93,7 @@ app.get("/",(req,res)=>{
         <script>
             document.getElementById("join").onclick=()=>{
                 const id=document.getElementById("sid").value;
-                globalThis.socket = io("http://${req.hostname}:8000");
+                globalThis.socket = io("https://${req.hostname}:8000");
                 socket.on("socket:id",({id})=>{
                     globalThis.thisSocket=id;
                 })  
@@ -258,7 +258,7 @@ app.get("/game",(req,res)=>{
         <div id="socketId"></div>
         <div id="confirmation"></div>
         <script>
-            const socket = io("http://${req.hostname}:8000");
+            const socket = io("https://${req.hostname}:8000");
             const socketIdDiv=document.getElementById("socketId");
             const confirmationDiv=document.getElementById("confirmation");
             socket.on("socket:id",({id})=>{
