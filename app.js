@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const server = http.createServer(app);
 const io = new SocketServer(server,{
     cors:{
-        origin:"*"
+        origin:"https://juego-edgarsc0.vercel.app"
     }
 });
 
