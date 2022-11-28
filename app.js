@@ -52,7 +52,35 @@ app.get("/",(req,res)=>{
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
         <title>TRIVIAL SHIPS</title>
-        <link rel='stylesheet' href='css/style.css'>
+        <style>
+        .ship{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            animation-duration: 1.7s;
+            animation-name: move;
+            animation-iteration-count: infinite;
+            border: 0px;
+        }
+        .mainContent{
+            height: 900px;
+            border: 1px solid black;
+            overflow: hidden;
+            display: flex;
+        }
+        .time{
+            display: flex;
+        }
+        @keyframes move{
+            from{
+                margin-top: -20%;
+            }
+            to{
+                margin-top: 100%;
+            }
+        
+        }
+        </style>
         <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
@@ -192,8 +220,36 @@ app.get("/game",(req,res)=>{
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
         <script src="/socket.io/socket.io.js"></script>
-        <link rel='stylesheet' href='css/style.css'>
         <title>TRIVIAL SHIPS</title>
+        <style>
+        .ship{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            animation-duration: 1.7s;
+            animation-name: move;
+            animation-iteration-count: infinite;
+            border: 0px;
+        }
+        .mainContent{
+            height: 900px;
+            border: 1px solid black;
+            overflow: hidden;
+            display: flex;
+        }
+        .time{
+            display: flex;
+        }
+        @keyframes move{
+            from{
+                margin-top: -20%;
+            }
+            to{
+                margin-top: 100%;
+            }
+        
+        }
+        </style>
     </head>
     <body>
         <h1>Crear Partida</h1>
