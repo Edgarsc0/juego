@@ -20,7 +20,7 @@ const io = new SocketServer(server,{
 app.use(express.static("public"));
 
 // Middlewares
-//app.use(cors());
+app.use(cors());
 //app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 
