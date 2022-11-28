@@ -3,6 +3,7 @@ import http from "http";
 import { Server as SocketServer } from "socket.io";
 import bodyParser from "body-parser";
 import cors from "cors";
+import { hostname } from "os";
 // Initializations
 
 const app = express();
@@ -42,6 +43,7 @@ io.on("connection", (socket) => {
 
 
 app.get("/",(req,res)=>{
+    console.log(req.hostname);
     res.send(`
     <!DOCTYPE html>
     <html lang="en">
@@ -63,7 +65,7 @@ app.get("/",(req,res)=>{
         <script>
             document.getElementById("join").onclick=()=>{
                 const id=document.getElementById("sid").value;
-                globalThis.socket = io("http://192.168.1.96:8000");
+                globalThis.socket = io("http://${req.hostname}:8000");
                 socket.on("socket:id",({id})=>{
                     globalThis.thisSocket=id;
                 })  
@@ -200,7 +202,7 @@ app.get("/game",(req,res)=>{
         <div id="socketId"></div>
         <div id="confirmation"></div>
         <script>
-            const socket = io("http://192.168.1.96:8000");
+            const socket = io("http://${req.hostname}:8000");
             const socketIdDiv=document.getElementById("socketId");
             const confirmationDiv=document.getElementById("confirmation");
             socket.on("socket:id",({id})=>{
@@ -320,7 +322,7 @@ app.get("/game",(req,res)=>{
     `)
 })
 
-
-server.listen(8000,()=>{
-    console.log("server socket on port 8000");
+const port=process.env.PORT||8000;
+server.listen(port,()=>{
+    console.log("server socket on port "+port);
 });
